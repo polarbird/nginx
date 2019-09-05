@@ -1,0 +1,26 @@
+server {
+    client_max_body_size 20M;
+    listen 80 default;
+    
+    root /home/data/www;
+    index index.html index.htm index.php;
+
+    location / {
+        root /home/data/www;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass php:9000;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    }
+
+}
