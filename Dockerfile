@@ -12,6 +12,20 @@ VOLUME /mnt/acs_mnt/nas/polarbird
 COPY nginx.list /etc/apt/sources.list.d/nginx.list
 COPY nginx_signing.key /root/nginx_signing.key
 
+# Install packages
+RUN apt-get update \
+    &&  DEBIAN_FRONTEND="noninteractive" \
+        apt-get dist-upgrade -y \
+    && DEBIAN_FRONTEND="noninteractive" \
+        apt-get install -y \
+        ca-certificates \
+        curl \
+        libpcre3 \
+        librecode0 \
+        libsqlite3-0 \
+        libxml2 \
+        --no-install-recommends
+
 RUN apt-key add /root/nginx_signing.key \
     && apt-get update \
     && DEBIAN_FRONTEND="noninteractive" \
