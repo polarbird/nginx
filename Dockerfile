@@ -8,11 +8,7 @@ LABEL maintainer="polarbird<jlm0808@126.com>"
 COPY mnt /mnt
 VOLUME /mnt/acs_mnt/nas/polarbird
 
-#Update nginx.list
-COPY nginx.list /etc/apt/sources.list.d/nginx.list
-COPY nginx_signing.key /root/nginx_signing.key
-
-# Install packages
+# Install required packages
 RUN apt-get update \
     &&  DEBIAN_FRONTEND="noninteractive" \
         apt-get dist-upgrade -y \
@@ -26,6 +22,11 @@ RUN apt-get update \
         libxml2 \
         --no-install-recommends
 
+# Update nginx.list
+COPY nginx.list /etc/apt/sources.list.d/nginx.list
+COPY nginx_signing.key /root/nginx_signing.key
+
+# Install nginx
 RUN apt-key add /root/nginx_signing.key \
     && apt-get update \
     && DEBIAN_FRONTEND="noninteractive" \
