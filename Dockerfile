@@ -16,6 +16,7 @@ RUN apt-get update \
         apt-get install -y \
         ca-certificates \
         curl \
+        gnupg \
         libpcre3 \
         librecode0 \
         libsqlite3-0 \
